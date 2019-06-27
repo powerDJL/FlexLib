@@ -707,32 +707,35 @@ void FlexApplyLayoutParam(YGLayout* layout,
 {
     static NSString* documentPath;
     if(documentPath == nil){
-        NSArray *documents = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        documentPath = documents[0];
+//        NSArray *documents = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//        documentPath = documents[0];
+//        documentPath = [documentPath stringByAppendingPathComponent:@"flex"];
+//        NSDictionary* info = [[NSBundle mainBundle] infoDictionary];
+//        NSString *buildNumber = info[@"CFBundleVersion"];
+//        if(buildNumber == nil)
+//            buildNumber = @"0";
+//        buildNumber = [@"flex_run_" stringByAppendingString:buildNumber];
+//
+//        NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
+//        BOOL alreadRun = [userDefaults boolForKey:buildNumber];
+//        NSFileManager* manager=[NSFileManager defaultManager];
+//        if( !alreadRun ){
+//
+//            // clear the cache by last version
+//            [manager removeItemAtPath:documentPath error:NULL
+//             ];
+//            [manager createDirectoryAtPath:documentPath withIntermediateDirectories:YES attributes:nil error:nil];
+//            [userDefaults setBool:YES forKey:buildNumber];
+//        }else{
+//            if(![manager fileExistsAtPath:documentPath])
+//                [manager createDirectoryAtPath:documentPath withIntermediateDirectories:YES attributes:nil error:nil];
+//        }
+        NSArray *librarys = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        documentPath = librarys[0];
         documentPath = [documentPath stringByAppendingPathComponent:@"flex"];
-        
-        // create run flag
-        
-        NSDictionary* info = [[NSBundle mainBundle] infoDictionary];
-        NSString *buildNumber = info[@"CFBundleVersion"];
-        if(buildNumber == nil)
-            buildNumber = @"0";
-        buildNumber = [@"flex_run_" stringByAppendingString:buildNumber];
-
-        NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
-        BOOL alreadRun = [userDefaults boolForKey:buildNumber];
-       
-         NSFileManager* manager=[NSFileManager defaultManager];
-        if( !alreadRun ){
-            
-            // clear the cache by last version
-            [manager removeItemAtPath:documentPath error:NULL
-             ];
+        NSFileManager* manager=[NSFileManager defaultManager];
+        if(![manager fileExistsAtPath:documentPath]){
             [manager createDirectoryAtPath:documentPath withIntermediateDirectories:YES attributes:nil error:nil];
-            [userDefaults setBool:YES forKey:buildNumber];
-        }else{
-            if(![manager fileExistsAtPath:documentPath])
-                [manager createDirectoryAtPath:documentPath withIntermediateDirectories:YES attributes:nil error:nil];
         }
     }
     return documentPath;

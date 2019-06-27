@@ -11,6 +11,11 @@ import UIKit
 import FlexLib
 
 @UIApplicationMain
+
+//NSData* (*FlexLoadFunc)(NSString* flexName,NSObject* owner);
+@objc func loadFiles(flexName:String,ownwer:Any) ->NSData {
+    
+}
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
@@ -20,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         FlexRestorePreviewSetting()
-        
+        FlexSetCustomLoadFunc()
         
         self.window = UIWindow.init(frame: UIScreen.main.bounds) ;
         self.window?.backgroundColor = UIColor.white;
